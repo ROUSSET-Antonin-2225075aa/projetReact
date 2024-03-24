@@ -1,18 +1,20 @@
 import React from "react";
-import Header from "./Header.js"
-import Footer from "./Footer.js"
+import Header from "./Header.js";
+import Footer from "./Footer.js";
 
 class TodoApp extends React.Component {
     constructor(props) {
         super(props);
+        // Charge les tâches depuis le localStorage ou utilise les tâches par défaut
+        const storedTasks = localStorage.getItem("tasks");
         this.state = {
-            items: [
+            items: storedTasks ? JSON.parse(storedTasks) : [
                 { id: 1, text: 'Learn JavaScript', done: false },
                 { id: 2, text: 'Learn React', done: false },
                 { id: 3, text: 'Play around in JSFiddle', done: true },
                 { id: 4, text: 'Build something awesome', done: true },
             ],
-            searchText: '',
+            searchText: "",
         };
         this.changeCheck = this.changeCheck.bind(this);
         this.delTask = this.delTask.bind(this);
@@ -21,6 +23,11 @@ class TodoApp extends React.Component {
         this.getRemainingTasks = this.getRemainingTasks.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.changeOrder = this.changeOrder.bind(this);
+    }
+
+    componentDidUpdate() {
+        // Met à jour le localStorage à chaque modification des tâches
+        localStorage.setItem("tasks", JSON.stringify(this.state.items));
     }
 
     getTotalTasks() {
@@ -121,4 +128,4 @@ class TodoApp extends React.Component {
     }
 }
 
-export default TodoApp
+export default TodoApp;
