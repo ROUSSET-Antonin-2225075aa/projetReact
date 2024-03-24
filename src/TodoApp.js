@@ -5,7 +5,6 @@ import Footer from "./Footer.js";
 class TodoApp extends React.Component {
     constructor(props) {
         super(props);
-        // Charge les tâches depuis le localStorage ou utilise les tâches par défaut
         const storedTasks = localStorage.getItem("tasks");
         this.state = {
             items: storedTasks ? JSON.parse(storedTasks) : [
@@ -26,7 +25,6 @@ class TodoApp extends React.Component {
     }
 
     componentDidUpdate() {
-        // Met à jour le localStorage à chaque modification des tâches
         localStorage.setItem("tasks", JSON.stringify(this.state.items));
     }
 
